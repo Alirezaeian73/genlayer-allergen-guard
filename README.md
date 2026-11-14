@@ -27,8 +27,42 @@ It reports database labels only. It does not determine whether a product is medi
 
 Checks the selected tag and stores a record. The function returns the record ID.
 
-Example:
+Example inputs:
 
-```text
-barcode: 3017620422003
-allergen_tag: en:milk
+    barcode: 3017620422003
+    allergen_tag: en:milk
+
+### `get_check(check_id)`
+
+Returns the stored record as a JSON string.
+
+### `get_check_count()`
+
+Returns the number of stored checks.
+
+## Data source
+
+Open Food Facts product API:
+
+`https://world.openfoodfacts.org/api/v2/product/{barcode}.json`
+
+Open Food Facts is a community-maintained database. Product data may be incomplete or outdated. Always check the current package label and consult a qualified professional when needed.
+
+## Deployment and live check
+
+- Contract address: [`0x310bC826d58c0dD04628ae30e94b5CfCc13C3Db1`](https://explorer-studio.genlayer.com/address/0x310bC826d58c0dD04628ae30e94b5CfCc13C3Db1)
+- Deployment transaction: [`0x6b2e9e07383a1a952a237c1a4d874f946c33b5af893e02a701606b4620da580c`](https://explorer-studio.genlayer.com/tx/0x6b2e9e07383a1a952a237c1a4d874f946c33b5af893e02a701606b4620da580c)
+- Live check transaction: [`0x3bc13969708f644cfc8705f293b80f18dc93f661d10c8d39df682f171a7bd18e`](https://explorer-studio.genlayer.com/tx/0x3bc13969708f644cfc8705f293b80f18dc93f661d10c8d39df682f171a7bd18e)
+
+The recorded live example returned `DECLARED_ALLERGEN` for `en:milk` on barcode `3017620422003`. This reflects the source database response at the time of the check, not an independent laboratory test.
+
+## Run local tests
+
+    python -m pip install -r requirements-dev.txt
+    python -m pytest -q
+
+The local unit tests cover input validation and source-response parsing. The live contract call is linked above.
+
+## Disclaimer
+
+AllergenGuard is an informational software demonstration. `NOT_LISTED` is not a safety guarantee, and this project is not medical advice. Verify ingredients and allergen warnings on the product packaging.
